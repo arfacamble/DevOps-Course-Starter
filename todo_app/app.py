@@ -9,8 +9,11 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    todos = get_items()
-    return render_template("index.html", todos=todos)
+    all_items = get_items()
+    todos, completed = [], []
+    for item in all_items:
+        (completed if item['status'] == 'Completed' else todos).append(item)
+    return render_template("index.html", todos=todos, completed=completed)
 
 @app.route('/add-todo', methods=['POST'])
 def create():
