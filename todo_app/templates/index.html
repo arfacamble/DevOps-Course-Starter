@@ -17,30 +17,82 @@
     </div>
   </div>
 
+  {% if tasks_without_status %}
   <div class="row">
     <div class="col-12 col-md-6">
+      <h2>APPLY STATUS NOW</h2>
+      <table>
+        {% for task in tasks_without_status %}
+        <tr>
+          <td>{{ task["title"] }}</td>
+          <td><form action="{{ url_for('change_status', status='Not Started', task_id=task['id']) }}" method="POST"><button class="btn btn-primary" type="submit">Not Started</button></form></td>
+          <td><form action="{{ url_for('change_status', status='In Progress', task_id=task['id']) }}" method="POST"><button class="btn btn-warning" type="submit">In Progress</button></form></td>
+          <td><form action="{{ url_for('change_status', status='Complete', task_id=task['id']) }}" method="POST"><button class="btn btn-secondary" type="submit">Complete</button></form></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if tasks_with_multiple_stati %}
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <h2>REMOVE MULTIPLE STATI NOW</h2>
+      <table>
+        {% for task in tasks_with_multiple_stati %}
+        <tr>
+          <td class="pr-3">{{ task.title }}</td>
+          {% for status in task.status %}
+          <td>
+            <form action="{{ url_for('remove_status', task_id=task['id'], status_id=status['id']) }}" method="post">
+              <div class="border-danger border rounded p-2">
+                <span>{{ status['title'] }}</span>
+                <button class="btn btn-danger">X</button>
+              </div>
+            </form>
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-12 col-md-4">
       <h2>To Do</h2>
       <table>
-        {% for todo in todos %}
+        {% for task in todos %}
         <tr>
-          <td>{{ todo["title"] }}</td>
+          <td>{{ task["title"] }}</td>
           <td>
-
-            <form action="{{ url_for('mark_complete', id=todo['id']) }}" method="post">
-              <input type="checkbox" onclick="form.submit()">
-            </form>
           </td>
         </tr>
         {% endfor %}
       </table>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-4">
+      <h2>In Progress</h2>
+      <table>
+        {% for task in in_progress %}
+        <tr>
+          <td>{{ task["title"] }}</td>
+          <td>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="col-12 col-md-4">
       <h2>Completed</h2>
       <table>
-        {% for todo in completed %}
+        {% for task in complete %}
         <tr>
-          <td>{{ todo["title"] }}</td>
+          <td>{{ task["title"] }}</td>
           <td>✅</td>
         </tr>
         {% endfor %}
