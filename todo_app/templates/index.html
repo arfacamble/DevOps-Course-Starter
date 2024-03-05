@@ -24,10 +24,10 @@
       <table>
         {% for task in tasks_without_status %}
         <tr>
-          <td>{{ task["title"] }}</td>
-          <td><form action="{{ url_for('change_status', status='Not Started', task_id=task['id']) }}" method="POST"><button class="btn btn-primary" type="submit">Not Started</button></form></td>
-          <td><form action="{{ url_for('change_status', status='In Progress', task_id=task['id']) }}" method="POST"><button class="btn btn-warning" type="submit">In Progress</button></form></td>
-          <td><form action="{{ url_for('change_status', status='Complete', task_id=task['id']) }}" method="POST"><button class="btn btn-secondary" type="submit">Complete</button></form></td>
+          <td>{{ task.title }}</td>
+          <td><form action="{{ url_for('change_status', status='Not Started', task_id=task.id) }}" method="POST"><button class="btn btn-primary" type="submit">Not Started</button></form></td>
+          <td><form action="{{ url_for('change_status', status='In Progress', task_id=task.id) }}" method="POST"><button class="btn btn-warning" type="submit">In Progress</button></form></td>
+          <td><form action="{{ url_for('change_status', status='Complete', task_id=task.id) }}" method="POST"><button class="btn btn-secondary" type="submit">Complete</button></form></td>
         </tr>
         {% endfor %}
       </table>
@@ -45,9 +45,9 @@
           <td class="pr-3">{{ task.title }}</td>
           {% for status in task.status %}
           <td>
-            <form action="{{ url_for('remove_status', task_id=task['id'], status_id=status['id']) }}" method="post">
+            <form action="{{ url_for('remove_status', task_id=task.id, status_id=status.id) }}" method="post">
               <div class="border-danger border rounded p-2">
-                <span>{{ status['title'] }}</span>
+                <span>{{ status.title }}</span>
                 <button class="btn btn-danger">X</button>
               </div>
             </form>
@@ -66,7 +66,7 @@
       <table>
         {% for task in todos %}
         <tr>
-          <td>{{ task["title"] }}</td>
+          <td>{{ task.title }}</td>
           <td>
           </td>
         </tr>
@@ -79,7 +79,7 @@
       <table>
         {% for task in in_progress %}
         <tr>
-          <td>{{ task["title"] }}</td>
+          <td>{{ task.title }}</td>
           <td>
           </td>
         </tr>
@@ -92,7 +92,7 @@
       <table>
         {% for task in complete %}
         <tr>
-          <td>{{ task["title"] }}</td>
+          <td>{{ task.title }}</td>
           <td>✅</td>
         </tr>
         {% endfor %}
