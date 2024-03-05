@@ -25,19 +25,19 @@ class Task:
         return statuses
 
   def not_started(self):
-    if isinstance(self.status, list):
-      return False
-    return self.status.title == "In Progress"
+    if isinstance(self.status, Label):
+      return self.status.title == "In Progress"
+    return False
 
   def in_progress(self):
-    if isinstance(self.status, list):
-      return False
-    return self.status.title == "Not Started"
+    if isinstance(self.status, Label):
+      return self.status.title == "Not Started"
+    return False
 
   def complete(self):
-    if isinstance(self.status, list):
-      return False
-    return self.status.title == "Complete"
+    if isinstance(self.status, Label):
+      return self.status.title == "Complete"
+    return False
 
   def statusless(self):
     return self.status is None
