@@ -52,6 +52,16 @@ def change_status(task_id, status):
     add_status(task_id, status_id)
     return redirect('/')
 
+@app.route('/resolve-multiple-stati/<status>/<task_id>', methods=["POST"])
+def resolve_multiple_stati(task_id, status):
+    status_ids = get_status_label_ids()
+    correct_status_id = status_ids[status]
+    incorrect_stati_ids = [id for status_title, id in status_ids.items() if status_title is not status]
+    for status_id in incorrect_stati_ids:
+        remove_status(task_id, status_id)
+    add_status(task_id, correct_status_id)
+    return redirect('/')
+
 def full_url(path):
     trello_api_root = "https://api.trello.com/1"
     trello_api_key = os.getenv('TRELLO_API_KEY')
@@ -62,11 +72,9 @@ def add_status(task_id, status_id):
     add_label_path = f"/cards/{task_id}/idLabels"
     requests.request("POST", full_url(add_label_path), params={"value": status_id})
 
-@app.route('/remove-status/<task_id>/<status_id>', methods=["POST"])
 def remove_status(task_id, status_id):
     remove_label_path = f"/cards/{task_id}/idLabels/{status_id}"
     requests.request("DELETE", full_url(remove_label_path))
-    return redirect('/')
 
 def get_status_label_ids():
     status_options = ['Not Started', 'In Progress', 'Complete']

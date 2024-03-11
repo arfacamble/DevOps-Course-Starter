@@ -38,21 +38,15 @@
   {% if tasks_with_multiple_stati %}
   <div class="row">
     <div class="col-12 col-md-6">
-      <h2>REMOVE MULTIPLE STATI NOW</h2>
+      <h2>TERRIBLE ERROR. TASKS HAVE MULTIPLE STATI!</h2>
+      <p>choose correct status now</p>
       <table>
         {% for task in tasks_with_multiple_stati %}
         <tr>
-          <td class="pr-3">{{ task.title }}</td>
-          {% for status in task.status %}
-          <td>
-            <form action="{{ url_for('remove_status', task_id=task.id, status_id=status.id) }}" method="post">
-              <div class="border-danger border rounded p-2">
-                <span>{{ status.title }}</span>
-                <button class="btn btn-danger">X</button>
-              </div>
-            </form>
-          </td>
-          {% endfor %}
+          <td>{{ task.title }}</td>
+          <td><form action="{{ url_for('resolve_multiple_stati', status='Not Started', task_id=task.id) }}" method="POST"><button class="btn btn-primary" type="submit">Not Started</button></form></td>
+          <td><form action="{{ url_for('resolve_multiple_stati', status='In Progress', task_id=task.id) }}" method="POST"><button class="btn btn-warning" type="submit">In Progress</button></form></td>
+          <td><form action="{{ url_for('resolve_multiple_stati', status='Complete', task_id=task.id) }}" method="POST"><button class="btn btn-secondary" type="submit">Complete</button></form></td>
         </tr>
         {% endfor %}
       </table>
