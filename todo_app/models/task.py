@@ -20,27 +20,21 @@ class Task:
     if status_count == 1:
         return statuses[0]
     elif status_count < 1:
-        return None
+        return Label(None, "No Status")
     else:
-        return statuses
+        return Label(None, "Multiple Stati")
 
   def not_started(self):
-    if isinstance(self.status, Label):
-      return self.status.title == "In Progress"
-    return False
+    return self.status.title == "Not Started"
 
   def in_progress(self):
-    if isinstance(self.status, Label):
-      return self.status.title == "Not Started"
-    return False
+    return self.status.title == "In Progress"
 
   def complete(self):
-    if isinstance(self.status, Label):
-      return self.status.title == "Complete"
-    return False
+    return self.status.title == "Complete"
 
   def statusless(self):
-    return self.status is None
+    return self.status.title == "No Status"
 
   def has_multiple_stati(self):
-    return isinstance(self.status, list)
+    return self.status.title == "Multiple Stati"
