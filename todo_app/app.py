@@ -58,18 +58,6 @@ def full_url(path):
     trello_api_token = os.getenv('TRELLO_API_TOKEN')
     return f"{trello_api_root}{path}?key={trello_api_key}&token={trello_api_token}"
 
-def find_status(trello_card):
-    labels = trello_card["labels"]
-    status_options = ['Not Started', 'In Progress', 'Complete']
-    statuses = [label["name"] for label in labels if label["name"] in status_options]
-    status_count = len(statuses)
-    if status_count == 1:
-        return True, statuses[0]
-    elif status_count < 1:
-        return False, None
-    else:
-        return False, statuses
-
 def add_status(task_id, status_id):
     add_label_path = f"/cards/{task_id}/idLabels"
     requests.request("POST", full_url(add_label_path), params={"value": status_id})
