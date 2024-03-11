@@ -42,6 +42,13 @@ Populate the .env file with the relevant values for:
 - BOARD_ID
 - LIST_ID
 
+For now the trello board needs to have labels created with the values:
+- Not Started
+- In Progress
+- Complete
+
+_n.b. potential future intention to ensure these are created on app startup and possibly even insert their ids dynamically into the env at that point_
+
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/2.3.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
