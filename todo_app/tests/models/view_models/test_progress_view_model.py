@@ -14,3 +14,14 @@ def test_progress_view_model_sorts_tasks_correctly_that_are_complete():
   assert len(view_model.complete) is 1
   assert view_model.complete[0] is complete_task
 
+def test_progress_view_model_sorts_tasks_correctly_that_are_in_progress():
+  complete_label = Label("id1", "Complete")
+  in_progress_label = Label("id2", "In Progress")
+  in_progress_task = Task("id1", "in progress task", [in_progress_label])
+  tasks = [
+    in_progress_task,
+    Task("id2", "complete job", [complete_label]),
+  ]
+  view_model = ProgressViewModel(tasks)
+  assert len(view_model.in_progress) is 1
+  assert view_model.in_progress[0] is in_progress_task
