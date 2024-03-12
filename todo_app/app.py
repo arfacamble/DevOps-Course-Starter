@@ -4,6 +4,7 @@ from todo_app.data.session_items import add_item, get_item, get_items, save_item
 import os
 from todo_app.flask_config import Config
 from todo_app.models.task import Task
+from todo_app.models.view_models.progress_view_model import ProgressViewModel
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -14,19 +15,11 @@ def index():
     cards_path = f"/boards/{board_id}/cards"
     cards = requests.get(full_url(cards_path)).json()
     tasks = [Task.from_trello_card(card) for card in cards]
-    todos = [task for task in tasks if task.not_started()]
-    in_progress = [task for task in tasks if task.in_progress()]
-    complete = [task for task in tasks if task.complete()]
-    tasks_without_status = [task for task in tasks if task.statusless()]
-    tasks_with_multiple_stati = [task for task in tasks if task.has_multiple_stati()]
+    progress_view_model = ProgressViewModel(tasks)
 
     return render_template(
         "index.html",
-        todos=todos,
-        in_progress=in_progress,
-        complete=complete,
-        tasks_without_status=tasks_without_status,
-        tasks_with_multiple_stati=tasks_with_multiple_stati
+        progress_view_model=progress_view_model,
     )
 
 @app.route('/add-todo', methods=['POST'])
