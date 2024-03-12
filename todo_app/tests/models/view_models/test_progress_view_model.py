@@ -25,3 +25,15 @@ def test_progress_view_model_sorts_tasks_correctly_that_are_in_progress():
   view_model = ProgressViewModel(tasks)
   assert len(view_model.in_progress) is 1
   assert view_model.in_progress[0] is in_progress_task
+
+def test_progress_view_model_sorts_tasks_correctly_that_are_not_started():
+  complete_label = Label("id1", "Complete")
+  not_started_label = Label("id2", "Not Started")
+  not_started_task = Task("id1", "task to do", [not_started_label])
+  tasks = [
+    not_started_task,
+    Task("id2", "complete job", [complete_label]),
+  ]
+  view_model = ProgressViewModel(tasks)
+  assert len(view_model.not_started) is 1
+  assert view_model.not_started[0] is not_started_task
