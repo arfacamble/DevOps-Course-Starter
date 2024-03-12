@@ -37,3 +37,25 @@ def test_progress_view_model_sorts_tasks_correctly_that_are_not_started():
   view_model = ProgressViewModel(tasks)
   assert len(view_model.not_started) is 1
   assert view_model.not_started[0] is not_started_task
+
+def test_progress_view_model_sorts_multiple_tasks_correctly():
+  complete_label = Label("id1", "Complete")
+  in_progress_label = Label("id2", "In Progress")
+  not_started_label = Label("id2", "Not Started")
+  complete_titles = ["All done", "meets minimum requirements"]
+  in_progress_titles = ["bit of a slog", "nearly there", "get it over the line"]
+  not_started_titles = ["tax return", "water bill"]
+  tasks = []
+  for i, title in enumerate(complete_titles):
+    tasks.append(Task(f"id{i}", title, [complete_label]))
+  for i, title in enumerate(in_progress_titles):
+    tasks.append(Task(f"id{i}", title, [in_progress_label]))
+  for i, title in enumerate(not_started_titles):
+    tasks.append(Task(f"id{i}", title, [not_started_label]))
+  view_model = ProgressViewModel(tasks)
+  assert len(view_model.not_started) is len(not_started_titles)
+  assert [task.title for task in view_model.not_started].sort() == not_started_titles.sort()
+  assert len(view_model.in_progress) is len(in_progress_titles)
+  assert [task.title for task in view_model.in_progress].sort() == in_progress_titles.sort()
+  assert len(view_model.complete) is len(complete_titles)
+  assert [task.title for task in view_model.complete].sort() == complete_titles.sort()
