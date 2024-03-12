@@ -71,3 +71,10 @@ Press CTRL+C to quit
  * Debugger PIN: 113-666-066
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+## Running the Tests
+
+In a terminal running within the project virtual environment (opening a terminal within vscode should be enough for this), running the tests is as simple as running:
+
+`pytest`
