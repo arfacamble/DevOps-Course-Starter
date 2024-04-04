@@ -75,6 +75,6 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Running the Tests
 
-In a terminal running within the project virtual environment (opening a terminal within vscode should be enough for this), running the tests is as simple as running:
+Running the tests is as simple as:
 
-`pytest`
+`poetry run pytest` or simply `pytest` from within the project virtual environment
