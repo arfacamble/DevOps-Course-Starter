@@ -78,3 +78,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 Running the tests is as simple as:
 
 `poetry run pytest` or simply `pytest` from within the project virtual environment
+
+## Provisioning the app
+
+For instructions on running the app on virtual machines in the cloud, consult the readme in the ansible directory
