@@ -71,3 +71,10 @@ Press CTRL+C to quit
  * Debugger PIN: 113-666-066
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+## Running the Tests
+
+Running the tests is as simple as:
+
+`poetry run pytest` or simply `pytest` from within the project virtual environment
